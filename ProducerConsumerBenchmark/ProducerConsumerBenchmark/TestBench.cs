@@ -36,18 +36,18 @@ namespace ProducerConsumerBenchmark
     [Config(typeof(Config))]
     public class Bench
     {
-      [Params(10000, 1000000)]
+       [Params(10000, 1000000)]
         public int Repeats { get; set; }
 
         public int TotalRepeats { get; set; }
 
-      [Params(0, 1000)]
+       [Params(0, 1000)]
         public int WorkLoad { get; set; }
 
-       [Params(1, 2, 3)]
+        [Params(1, 2, 3, 4)]
         public int Producers { get; set; }
 
-          [Params(1, 2, 3)]
+       [Params(1, 2, 3, 4)]
         public int Consumers { get; set; }
 
         CountdownEvent countdown;
@@ -55,6 +55,7 @@ namespace ProducerConsumerBenchmark
         [Setup]
         public void DedicatedThreadPoolBenchSetup()
         {
+           
             countdown = new CountdownEvent(Producers * Repeats);
         }
 
@@ -153,7 +154,7 @@ namespace ProducerConsumerBenchmark
             countdown.Wait();
         }
 
-        [Benchmark]
+       // [Benchmark]
         public void NaiveLockedList()
         {
             if (Repeats >= 1000000)
